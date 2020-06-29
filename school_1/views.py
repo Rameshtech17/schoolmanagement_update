@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from .models import School, Class, Teacher, Student, Subject
-from .serializers import SchoolSerializer, ClassSerializer, StudentSerializer, TeacherSerializer, StudentListSerializer, SubjectSerializer, SearchsSerializer
+from .serializers import SchoolSerializer, ClassSerializer, StudentsSerializer, TeacherSerializer, StudentSerializer, SubjectSerializer, SearchSerializer
 from django.db import connection
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -33,7 +33,7 @@ class SchoolAPIView(APIView):
 
 class ClassSearchAPIView(generics.ListAPIView):
     queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    serializer_class = StudentsSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('ClassName', )
     # search_fields = ('ClassName',)
@@ -41,7 +41,7 @@ class ClassSearchAPIView(generics.ListAPIView):
 
 class SearchAPIView(generics.ListAPIView):
     queryset = Teacher.objects.all()
-    serializer_class = SearchsSerializer
+    serializer_class = SearchSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('Class', 'TeacherName')
     # search_fields = ('Class', 'TeacherName')
@@ -67,11 +67,11 @@ class TeacherAPIView(APIView):
 
     def get(self, request):
         teacher = Teacher.objects.all()
-        serializer = TeachersSerializer(teacher, many=True)
+        serializer = TeacherSerializer(teacher, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = TeachersSerializer(data=request.data)
+        serializer = TeacherSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -83,11 +83,11 @@ class StudentListAPIView(APIView):
 
     def get(self, request):
         student = Student.objects.all()
-        serializer = StudentListSerializer(student, many=True)
+        serializer = StudentSerializer(student, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = StudentListSerializer(data=request.data)
+        serializer = StudentSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -178,12 +178,12 @@ class TeacherUpdateAPIView(APIView):
 
     def get(self, request, id):
         teacher = self.get_object(id)
-        serializer = TeachersSerializer(teacher)
+        serializer = TeacherSerializer(teacher)
         return Response(serializer.data)
 
     def put(self, request, id):
         teacher = self.get_object(id)
-        serializer = TeachersSerializer(teacher, data=request.data)
+        serializer = TeacherSerializer(teacher, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -206,12 +206,12 @@ class StudentListUpdateAPIView(APIView):
 
     def get(self, request, id):
         student = self.get_object(id)
-        serializer = StudentListSerializer(student)
+        serializer = StudentSerializer(student)
         return Response(serializer.data)
 
     def put(self, request, id):
         student = self.get_object(id)
-        serializer = StudentListSerializer(student, data=request.data)
+        serializer = StudentSerializer(student, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -32,7 +32,7 @@ class Student(models.Model):
 
 class Teacher(models.Model):
     TeacherName = models.CharField(max_length=100)
-    ClassName = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)
+    Class = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

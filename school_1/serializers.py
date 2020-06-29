@@ -11,18 +11,18 @@ class SchoolSerializer(serializers.ModelSerializer):
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['id', 'TeacherName', 'ClassName']
-        depth = 2
-
-
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = ['id', 'FirstName', 'ClassName']
+        fields = ['id', 'TeacherName', 'Class']
         depth = 1
 
 
-class SearchsSerializer(serializers.ModelSerializer):
+class StudentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id', 'FirstName', 'ClassName']
+        # depth = 1
+
+
+class SearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = ['id', 'TeacherName']
@@ -35,7 +35,7 @@ class SubjectSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class StudentListSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['id', 'FirstName', 'LastName', 'ClassName']
