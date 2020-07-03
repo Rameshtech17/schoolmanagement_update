@@ -9,9 +9,19 @@ class School(models.Model):
     def __str__(self):
         return self.SchoolName
 
+class Student(models.Model):
+    FirstName = models.CharField(max_length=100)
+    LastName = models.CharField(max_length=100)
+    # ClassName = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return self.FirstName
 
 class Class(models.Model):
     ClassName = models.CharField(max_length=50)
+    Student = models.ForeignKey(Student,on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -19,20 +29,10 @@ class Class(models.Model):
         return self.ClassName
 
 
-class Student(models.Model):
-    FirstName = models.CharField(max_length=100)
-    LastName = models.CharField(max_length=100)
-    ClassName = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.FirstName
-
 
 class Teacher(models.Model):
-    TeacherName = models.CharField(max_length=100)
     Class = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True)
+    TeacherName = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
