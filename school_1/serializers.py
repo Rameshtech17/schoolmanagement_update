@@ -33,15 +33,14 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ['id', 'Subject', 'TeacherName']
-        depth = 1
-
+        # depth = 1
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['id', 'FirstName', 'LastName', ]
-        depth = 1
+        # depth = 1
 
 
 class ClassSerializer(serializers.ModelSerializer):
